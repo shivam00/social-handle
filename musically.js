@@ -17,11 +17,7 @@ const automate = async (link,res) => {
     const heart = await page.$eval('#musicContent > div > div > p:nth-child(3) > strong', el => el.innerHTML);
     const fans = await page.$eval('#musicContent > div > div > p:nth-child(2) > strong', el => el.innerHTML);
    await browser.close();
-let result = {
-    "following" : following,
-    "heart": heart,
-    "fans" : fans
-}
+let result = "{ following : "+following+",heart:"+ heart+", fans : "+fans+"}";
 
    res.end(result);
 
