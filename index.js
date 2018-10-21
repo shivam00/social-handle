@@ -1,60 +1,41 @@
-var express        =         require("express");
-var bodyParser     =         require("body-parser");
-var app            =         express();
+var express = require("express");
+var bodyParser = require("body-parser");
+var app = express();
+
 const puppeteer = require('puppeteer');
+import linkedin from './linkedin';
+import musically from './musically';
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
-app.post('/handle',function(req,res){
-  var handle=req.body.handle;
-  var link=req.body.link;
+app.post('/handle', function (req, res) {
+  var handle = req.body.handle;
+  var link = req.body.link;
 
 
-  console.log("User name = "+handle+", password is "+link);
-/* ****************************************** */
+  switch (handle) {
+    case 'linkedin':
+      (async => {
+        await linkedin();
+      })();
+      break;
+    case 'musically':
+      (async => {
+        await musically();
+      })();
+      break;
+    default:
 
-(async () => {
-  const browser = await puppeteer.launch({ 
-      headless: false,
-      args: [
-        `--window-size=${ 1024 },${ 700 }`
-    ],
-  });
-  const page = await browser.newPage();
-  await page.setViewport({ width:1224, height: 700 })
-  await page.goto('https:linkedin.com');
-//   await page.click('#root > div.header_nav.flush_bottom.dl85.layouts.fhr17.header._a._jm > div > div > div.s-grid-colSm24 > div.searchAndLinks.u-floatRight.u-borderBox > div > div.s-flexgrid0-colSm.linksContainer.respondToNavbarHeight.u-floatRight > div:nth-child(1) > a.auth.login.u-fontWeight300');
-//   await page.waitFor(5000);
-//   await page.keyboard.type(username);
-// await page.click('#user_password');
-//   await page.keyboard.type(password);
-// await page.click('#new_user > div:nth-child(6) > input')
-// await page.waitFor(5000);
-// await page.goto('https:angel.co/jobs');
-// await page.waitFor(5000);
-// await page.click('#startups_content > div.djl87.job_listings.fbs55.browse_startups._a._jm > div.find.g-module.gray.hidden.shadow_no_border.startup-container > div > div > div.djl87.job_listings.fbw9.browse_startups_table_row._a._jm.expanded > div.action-bar.browse_startup_action_bar > table > tbody > tr > td.right-corner > div > div.buttons > a.g-button.blue.apply-now-button');
-// await page.waitFor(5000);
-// await page.keyboard.type(about);
-
-// await page.click('#layouts-base-body > div.ReactModalPortal > div > div > div > div._1xXo9j7wJhYoCN1vk_CNsT.action-bar > div > div:nth-child(3) > button');
-// await page.waitFor(2000);
-// #layouts-base-body > div.ReactModalPortal > div > div > div > div._3Aslx7L3GVI4XM7PUyYKza.action-bar > div > div:nth-child(4) > button
-await page.waitFor(50000);
- 
-await browser.close();
-
-  res.end("yes");
-})();
-
-
-/* ****************************************** */
+      res.end("Wrong handle Suggestion :- {linkedin ; musically}");
+  }
 
 });
 
 
 
-app.listen(3000,function(){
+app.listen(3000, function () {
   console.log("Started on PORT 3000");
 })
