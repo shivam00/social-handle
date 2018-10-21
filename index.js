@@ -21,7 +21,7 @@ app.post('/handle', function (req, res) {
       (async () => {
 
         
-        await linkedin(link);
+        await linkedin(link,res);
       })();
       break;
     case 'musically':
