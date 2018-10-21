@@ -13,18 +13,18 @@ app.use(bodyParser.json());
 
 app.post('/handle', function (req, res) {
   var handle = req.body.handle;
-  var link = req.body.link;
-
+  var link = String(req.body.link);
+console.log(link)
 
   switch (handle) {
     case 'linkedin':
-      (async () => {
-        await linkedin();
+      (async (link) => {
+        await linkedin(link);
       })();
       break;
     case 'musically':
-      (async () => {
-        await musically();
+      (async (link) => {
+        await musically(link);
       })();
       break;
     default:

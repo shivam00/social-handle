@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const automate = async () => {
+const automate = async (link) => {
     const browser = await puppeteer.launch({ 
         headless: false,
         args: [
@@ -9,20 +9,22 @@ const automate = async () => {
     });
     const page = await browser.newPage();
     await page.setViewport({ width:1224, height: 700 })
-    await page.goto('https:linkedin.com');
+    console.log(link);
+    await page.goto(link);
 
-    await page.waitFor(50000);
-    
+    await page.waitFor(5000);
+    const searchValue = await page.$eval('#musicContent > div > div > p:nth-child(2) > strong', el => el.innerHTML);
+    console.log(searchValue);
    await browser.close();
    
-     res.end("yes");
+     res.end(searchValue);
 
   };
   module.exports= automate;
   
 
 
-
+  
 
   //   await page.click('#root > div.header_nav.flush_bottom.dl85.layouts.fhr17.header._a._jm > div > div > div.s-grid-colSm24 > div.searchAndLinks.u-floatRight.u-borderBox > div > div.s-flexgrid0-colSm.linksContainer.respondToNavbarHeight.u-floatRight > div:nth-child(1) > a.auth.login.u-fontWeight300');
   //   await page.waitFor(5000);
