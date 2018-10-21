@@ -18,12 +18,12 @@ app.post('/handle', function (req, res) {
 
   switch (handle) {
     case 'linkedin':
-      (async => {
+      (async () => {
         await linkedin();
       })();
       break;
     case 'musically':
-      (async => {
+      (async () => {
         await musically();
       })();
       break;
