@@ -19,7 +19,7 @@ const automate = async (link,res) => {
 await page.click('#login-submit')
 await page.waitFor(5000);
     await page.goto(link+"/detail/recent-activity/");
-    await page.waitFor(5000);
+    await page.waitFor(10000);
 
 const followers = await page.$eval('#recent-activity-top-card > div.pv-recent-activity-top-card__extra-info.pv3.ph5 > p', el => el.innerHTML);
 
